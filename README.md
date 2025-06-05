@@ -20,8 +20,6 @@ This project is built using:
 - F# development tools
 
 ## Scrobbling Rules
-As a senior software engineer with experience in music streaming systems, let me explain the best practices for scrobbling state management:
-
 The most reliable approach for scrobbling follows Last.fm's official guidelines:
 
 1. **Primary Scrobbling Condition**: 
@@ -63,7 +61,5 @@ To obtain these credentials:
    - API Key
    - API Secret
 3. The SessionKey is obtained through the authentication process when you first run the application
-
-⚠️ Never commit your actual API credentials to version control. Consider using user secrets or environment variables in production.
 
 [MIT License](LICENSE)
