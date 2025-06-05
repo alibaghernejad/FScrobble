@@ -19,5 +19,51 @@ This project is built using:
 - .NET 9.0 SDK or later
 - F# development tools
 
+## Scrobbling Rules
+As a senior software engineer with experience in music streaming systems, let me explain the best practices for scrobbling state management:
+
+The most reliable approach for scrobbling follows Last.fm's official guidelines:
+
+1. **Primary Scrobbling Condition**: 
+   - When track has been played for at least 50% of its duration OR
+   - For tracks longer than 8 minutes, when played for at least 4 minutes
+
+2. **Optimal States for Scrobbling**:
+   - `Paused`
+   - `Stopped`
+   - When switching to a new track while in `Playing` state
+
+## Supported Scrobble Servers
+
+### ![Last.fm](images/lastfm-icon.png) Last.fm
+
+Last.fm is the original and most popular music scrobbling service. It provides:
+- Extensive music tracking and statistics
+- Personal listening history and reports
+- Music recommendations based on listening habits
+- Social features and community interaction
+- Rich API for developers
+
+## Configuration
+
+### Last.fm Authentication
+To use FScrobble with Last.fm, you need to configure the following credentials in `appsettings.json`:
+
+```json
+"LastFm": {
+  "ApiKey": "your_api_key_here",
+  "ApiSecret": "your_api_secret_here",
+  "SessionKey": "your_session_key_here"
+}
+```
+
+To obtain these credentials:
+1. Create a Last.fm API account at [Last.fm/api](https://www.last.fm/api/account/create)
+2. After creating your API account, you'll receive:
+   - API Key
+   - API Secret
+3. The SessionKey is obtained through the authentication process when you first run the application
+
+⚠️ Never commit your actual API credentials to version control. Consider using user secrets or environment variables in production.
 
 [MIT License](LICENSE)
