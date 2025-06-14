@@ -17,7 +17,6 @@ let getLastFmTrack (track: TrackInfo) (startTime: DateTimeOffset) =
 let scrobbleTrack (track: TrackInfo) (startTime: DateTimeOffset)  : ReaderAsync<AppDependencies, unit> =
     readerAsync {
         let! deps = ask
-        let outbox = deps.Outbox
         let log = deps.Log
         let (ReaderAsync sessionKeyReader) = getSessionKeyOrAuthenticate ()
         let! sessionKeyResult = sessionKeyReader deps
