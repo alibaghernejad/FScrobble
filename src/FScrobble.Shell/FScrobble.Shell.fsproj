@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <UserSecretsId>dotnet-FScrobble-ba1490e0-b6cd-4d54-982a-f196c07af80d</UserSecretsId>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EnableSourceLink>true</EnableSourceLink>
+
+  </PropertyGroup>
+
+
+  <ItemGroup><Compile Include="Messaging/MediaPlayerTrackers.fs" />
+    <Compile Include="Filters/FilterScriptLoader.fs" />
+    <Compile Include="InMemoryScrobbleOutbox.fs" />
+    <Compile Include="Logging/LogAdapter.fs" />
+    <Compile Include="Config/ConfigLoader.fs" />
+    <Compile Include="LastFm.fs" />
+    <Compile Include="LastFmScrobbler.fs" />
+    <Compile Include="Messaging/ScrobblingProcessor.fs" />
+    <Compile Include="CompositionRoot.fs" />
+    <Compile Include="ScrobblingHelper.fs" />
+    <Compile Include="Mpris.fs" />
+    <Compile Include="ScrobblingDeamon.fs" />
+    <Compile Include="CommandLineInterface.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Control.AsyncSeq" Version="3.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.4" />
+    <PackageReference Include="Tmds.DBus" Version="0.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <None Include="Scripts\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FScrobble.Core\FScrobble.Core.fsproj" />
+  </ItemGroup>
+
+</Project>

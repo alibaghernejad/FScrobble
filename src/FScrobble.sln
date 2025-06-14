@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FScrobble.Core", "FScrobble.Core\FScrobble.Core.fsproj", "{909595A7-31B6-4A8C-975A-0E41636D77DB}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FScrobble.Shell", "FScrobble.Shell\FScrobble.Shell.fsproj", "{4AD7B3CC-3D97-4F26-A07B-A7DB5EC1EC71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{909595A7-31B6-4A8C-975A-0E41636D77DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{909595A7-31B6-4A8C-975A-0E41636D77DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{909595A7-31B6-4A8C-975A-0E41636D77DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{909595A7-31B6-4A8C-975A-0E41636D77DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B87C8C-E7B2-47A9-B9CB-60E8F7F55D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B87C8C-E7B2-47A9-B9CB-60E8F7F55D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B87C8C-E7B2-47A9-B9CB-60E8F7F55D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B87C8C-E7B2-47A9-B9CB-60E8F7F55D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AD7B3CC-3D97-4F26-A07B-A7DB5EC1EC71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD7B3CC-3D97-4F26-A07B-A7DB5EC1EC71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD7B3CC-3D97-4F26-A07B-A7DB5EC1EC71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD7B3CC-3D97-4F26-A07B-A7DB5EC1EC71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

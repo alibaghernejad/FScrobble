@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup><Compile Include="Async.fs" /><Compile Include="Shared/MonadHelpers.fs" /><Compile Include="Constants.fs" /><Compile Include="ReaderT.fs" />
+    
+    <Compile Include="ReaderMonad.fs" />
+    <Compile Include="Config/AppConfigurations.fs" />
+    <Compile Include="Config/Defaults.fs" />
+    <Compile Include="Logging.fs" />
+    <Compile Include="Models.fs" />
+    <Compile Include="Outbox.fs" />
+    <Compile Include="Dependencies/AppDependencies.fs" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="ScrobblingFilters.fs" />
+
+  </ItemGroup>
+
+</Project>

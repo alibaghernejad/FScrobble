@@ -62,4 +62,12 @@ To obtain these credentials:
    - API Secret
 3. The SessionKey is obtained through the authentication process when you first run the application
 
+
+future works:
+   - repeative playbacks detaction support
+   
+
+
+
+
 [MIT License](LICENSE)
