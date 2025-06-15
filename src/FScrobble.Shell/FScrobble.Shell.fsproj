@@ -3,13 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <UserSecretsId>dotnet-FScrobble-ba1490e0-b6cd-4d54-982a-f196c07af80d</UserSecretsId>
-
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <EnableSourceLink>true</EnableSourceLink>
-
+    <PublishTrimmed>true</PublishTrimmed>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <SatelliteResourceLanguages></SatelliteResourceLanguages>
   </PropertyGroup>
 
 
@@ -36,8 +32,14 @@
     <PackageReference Include="Tmds.DBus" Version="0.15.0" />
   </ItemGroup>
 
-  <ItemGroup>
+  <PropertyGroup>
+      <PublishTrimmed>true</PublishTrimmed>
+      <InvariantGlobalization>true</InvariantGlobalization>
+      <SatelliteResourceLanguages></SatelliteResourceLanguages>
+      <DebugType>None</DebugType>
+  </PropertyGroup>
 
+  <ItemGroup>
     <None Include="Scripts\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
