@@ -6,7 +6,8 @@ module MessageQueue =
     open FScrobble.Core.Models
     open FScrobble.Core.Dependencies
     open FScrobble.Core.Messaging
-
+    open FScrobble.Core.Logging
+    
     /// The message processing function
     let LastFmScrobblingProcessor
         (deps: AppDependencies)
@@ -14,6 +15,9 @@ module MessageQueue =
         (msg:TrackInfo*DateTimeOffset)
         : Async<unit> =
         async{
+            if deps.Config.LastFm.IsEnabled |> not then
+                deps.Log Error "Last.fm scrobbling is disabled. Skipping scrobble." None
+                return ()
             let (ReaderAsync scrobbleRunner) = LastFmScrobbler.scrobbleTrack (fst msg) (snd msg)
             do! scrobbleRunner deps
         
