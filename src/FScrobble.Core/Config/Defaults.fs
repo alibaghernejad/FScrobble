@@ -7,16 +7,15 @@ module Defaults =
 
     let allowedPlayer : AllowedPlayer =
         { Name = ""
-        //   Metadata = None
           Metadata = Dictionary() }
 
     let scrobbling : Scrobbling =
-        { PlaybackPollInterval = TimeSpan.FromSeconds(5.0)
-          MprisServicesPollInterval = TimeSpan.FromSeconds(20.0)
+        { PlaybackPollInterval = TimeSpan.FromSeconds(3.0)
+          MprisServicesPollInterval = TimeSpan.FromSeconds(30.0)
           AllowedPlayers = [||]
           ThresholdFixed = TimeSpan.FromMinutes(4.0)
-          ThresholdFraction = 0.4
-          ThresholdMin = TimeSpan.FromSeconds(30.0) }
+          ThresholdFraction = 0.5
+          ThresholdMin = TimeSpan.FromSeconds(90.0) }
 
     let logging : Logging =
         { LogLevel = { Default = "Information"; ``Microsoft.Hosting.Lifetime`` = "Information" } }
