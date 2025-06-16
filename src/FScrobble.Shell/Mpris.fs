@@ -16,6 +16,7 @@ module Mpris =
     open FScrobble.Core.Constants
     open FScrobble.Core.AppConfigurations
     open System.Linq
+    open FScrobble.Core.Helpers
 
     [<DBusInterface(MPRIS_CORE_PLAYBACK_INTERFACE)>]
     type IMediaPlayer2Player =
@@ -159,25 +160,31 @@ module Mpris =
                 }
 
             
-            let getMediaPlayerNames (isFirstIter:bool, maxPlayers: int, tracker:EventBus<MediaPlayerTrackerMsg>) =
+            let getMediaPlayerNames 
+                (isFirstIter:bool, 
+                maxPlayers: int, 
+                tracker:EventBus<MediaPlayerTrackerMsg>,
+                deps:AppDependencies) =
                 async {
                     let! names = connection.ListServicesAsync() |> Async.AwaitTask
                     let namesFiltered = names |> Array.filter (fun name -> name.StartsWith(MPRIS_ROOT_INTERFACE))
                     if not (namesFiltered.Any()) then
                         printfn "No running media player detected."
                         printfn "Start your favotite players like 'Musikcube', 'Spotify', 'YouTube Music Web', ..."
-                        
                     let! results =
                         [ for p in namesFiltered -> async {
                             let! isActivable = isPlayerActive p
-                            // let playerId = Helpers.getPlayerId p
+                            let isAllowedPlayer = isAllowedPlayer (getPlayerId p) (List.ofArray deps.Config.Scrobbling.AllowedPlayers)
                             let! result =  
-                                match isActivable, tracker with
-                                | true, _ -> async{
+                                match isAllowedPlayer, isActivable, tracker with
+                                | true,true, _ -> async{
                                     let! isNew =  tracker.PostAndAsyncReply(fun reply -> TryAdd(p, reply))
                                     if not isNew then
                                         printfn "Discard player: '%s' Already Processing."  p
-                                    return Option.ofBool isNew |> Option.map (fun _ -> p)                                    }
+                                    return Option.ofBool isNew |> Option.map (fun _ -> p)  }
+                                | false,_,_-> 
+                                    printfn "Discard player: '%s' Not Allowed."  p
+                                    async.Return None
                                 | _ -> async.Return None
                             return result
                             // return if isNew then Some p else None
@@ -191,12 +198,14 @@ module Mpris =
                     return Some(resultsSomes, (false,maxPlayers))
                 }
 
-            let getMediaPlayers tracker (config:Scrobbling): AsyncSeq<string array> =
+            let getMediaPlayers tracker (deps:AppDependencies): AsyncSeq<string array> =
                 AsyncSeq.unfoldAsync (fun (isFirst,acc) ->
                     async {
+                        if deps.CancellationToken.IsCancellationRequested then
+                            return ()
                         if not isFirst then
-                            do! Async.Sleep (int config.MprisServicesPollInterval.TotalMilliseconds)
-                        let! result = getMediaPlayerNames (isFirst, acc, tracker)
+                            do! Async.Sleep (int deps.Config.Scrobbling.MprisServicesPollInterval.TotalMilliseconds)
+                        let! result = getMediaPlayerNames (isFirst, acc, tracker, deps)
                         return result
                     }
                 ) (true,3)
@@ -224,7 +233,7 @@ module Mpris =
             let tracker = deps.MediaPlayerTracker
             
             do!
-            getMediaPlayers tracker deps.Config.Scrobbling
+            getMediaPlayers tracker deps
             |> AsyncSeq.concatSeq
             |> filterAllowedPlayers deps.Config.Scrobbling
             // get player streams
