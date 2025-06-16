@@ -1,73 +1,80 @@
 # FScrobble
-**FScrobble** aims to be a _reliable and efficient_ D-Bus and MPRIS compatible music scrobbler service, allowing users to track their _music listening habits_ by automatically submitting track information to desired servers. 
+Welcome to **FScrobble**, A Music Scrobbling deamon service, written in F# and .NET.   
+FScrobble aims to be a _simple, reliable and efficient_ D-Bus and MPRIS compatible music scrobbler service,    
+allowing users to track their **music listening habits** by automatically submitting track information to desired servers.   
 
-"Built using F# with a focus on reliability and efficiency."  
+<img src="assets/fscrobble.png" alt="FScrobble Logo" width="33.3%" />
 
-**F#**, combined with _.NET_, is an excellent choice for system application development.
-F# code is efficient, concise, readable, and aesthetically pleasing.
-_FScrobble_ is a .NET Worker Service written in F# that runs as a background service.
+"Built with ❤ using F# and .NET, with a focus on reliability and efficiency."  
 
-## Project Structure
 
-This project is built using:
-- F# (.NET 9.0)
-- .NET Worker Service template
-- Microsoft.Extensions.Hosting
+## 🚀 Features
 
-## Prerequisites
+- 🎵 **Real-time Scrobbling**: Automatically track your music listening habits.
+- 🔗 **Last.fm Integration**: Connect your Last.fm account effortlessly.
+- ⚡ **Lightweight and Fast**: Built with F# for performance, simplicity and readability.
+- 🌐 **D-Bus and MPRIS-Compatible**: Works well for standard media players like Musikcube, YouTube Music,.. on Linux
 
-- .NET 9.0 SDK or later
-- F# development tools
 
-## Scrobbling Rules
-The most reliable approach for scrobbling follows Last.fm's official guidelines:
+## 📦 Installation
 
-1. **Primary Scrobbling Condition**: 
-   - When track has been played for at least 50% of its duration OR
-   - For tracks longer than 8 minutes, when played for at least 4 minutes
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/FScrobble.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd FScrobble
+   ```
+3. Build and run the application:
+   ```bash
+   dotnet run
+   ```
 
-2. **Optimal States for Scrobbling**:
-   - `Paused`
-   - `Stopped`
-   - When switching to a new track while in `Playing` state
 
-## Supported Scrobble Servers
+## 🛠 Configuration
 
-### ![Last.fm](images/lastfm-icon.png) Last.fm
+To configure your Last.fm API keys, use environment variables:
 
-Last.fm is the original and most popular music scrobbling service. It provides:
-- Extensive music tracking and statistics
-- Personal listening history and reports
-- Music recommendations based on listening habits
-- Social features and community interaction
-- Rich API for developers
-
-## Configuration
-
-### Last.fm Authentication
-To use FScrobble with Last.fm, you need to configure the following credentials in `appsettings.json`:
-
-```json
-"LastFm": {
-  "ApiKey": "your_api_key_here",
-  "ApiSecret": "your_api_secret_here",
-  "SessionKey": "your_session_key_here"
-}
+```bash
+export LastFm__ApiKey=YOUR_API_KEY
+export LastFm__ApiSecret=YOUR_API_SECRET
 ```
 
-To obtain these credentials:
-1. Create a Last.fm API account at [Last.fm/api](https://www.last.fm/api/account/create)
-2. After creating your API account, you'll receive:
-   - API Key
-   - API Secret
-3. The SessionKey is obtained through the authentication process when you first run the application
+Alternatively, you can create an `appsettings.Production.json` file for user overrides.
 
 
-future works:
-   - repeative playbacks detaction support
-   
+## 💡 Why F# and .NET?
+
+To be honest this a side project. A hobby project. During listenning to the _[Udo Lindenberg](https://en.wikipedia.org/wiki/Udo_Lindenberg)_ and [Bruce Springsteen](https://en.wikipedia.org/wiki/Bruce_Springsteen) **Catchy Songs**, needed to track my _music listening habits_ and came to this idea to write my own script, using MPRIS.
+Obviously there are another services that are great and can do that but i wanted to have a full control about the the data that transmitted to the provided servers.
+Alongside that, using F# echo-system and it's unique approach to software development that brings functional programming in combine to .NET that seamlenslyy improved by performace, security and features in new versions was a great experience.
+It's not about F#. It's about this fact that there are another approachs to software development, in which the result product is efficent, easier to develop, deploy and maintenance.
 
 
+## Name Candidates
+As you know **Naming the things** are very important by **Software engineers and developers**! There was a few option and consideration for naming the project.  
+At the first i was chosen the  **Nur** + **Scrobbling** pairs. That is **NurScrobbling**. Not Bad!  
+_Nur_ is a German word means _only_ in English and indicates that this
+service is responsible for scrobbling the musics only. After that i came to the _NurScrobble_ that was succinct, versatile, and  easier to remember.
+All in one, i decided to use **FS prefix** as a indicator that this project has been written in **Fsharp**. The second charachter by FS -S- was also match with the Next word _Scrobble_. So the **FScrobble** not only put the **Fsharp and Scrobbling** into the context, but also sounds elegant and chick (hopefully!) 
 
 
-[MIT License](LICENSE)
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+
+## 🤝 Contributing
+
+We welcome contributions! Feel free to open issues, submit pull requests, or suggest new features.
+Keep in mind that there are room for improvements, and there are also known issues that will be fixed for next releases.
+
+
+## 📧 Contact
+
+For questions or feedback, reach out to us at [alibaghernezhad@gmail.com](mailto:aliaghernezhadl@gmail.com).
+
+
+¹ **Footnote**: The pipe operator (`|>`) is a core feature of F# that allows you to pass the result of one function as an argument to another, enabling clean and readable functional code.
+
