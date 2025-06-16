@@ -1,0 +1,7 @@
+{
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "files.associations": {
+        "appsettings.json": "jsonc",
+        "appsettings.*.json": "jsonc"
+    }
+}
