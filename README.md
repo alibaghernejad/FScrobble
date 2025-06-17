@@ -1,6 +1,6 @@
 # FScrobble
-Welcome to **FScrobble**, A Music Scrobbling deamon service, written in F# and .NET.   
-FScrobble aims to be a _simple, reliable and efficient_ D-Bus and MPRIS compatible music scrobbler service,    
+A Music Scrobbling deamon service, written in F# and .NET.   
+**FScrobble** aims to be a _simple, reliable and efficient_ D-Bus and MPRIS music scrobbler service,    
 allowing users to track their **music listening habits** by automatically submitting track information to desired servers.   
 
 <img src="assets/fscrobble.png" alt="FScrobble Logo" width="33.3%" />
@@ -47,7 +47,7 @@ Alternatively, you can create an `appsettings.Production.json` file for user ove
 ## 💡 Why F# and .NET?
 
 To be honest this a side project. A hobby project. During listenning to the _[Udo Lindenberg](https://en.wikipedia.org/wiki/Udo_Lindenberg)_ and [Bruce Springsteen](https://en.wikipedia.org/wiki/Bruce_Springsteen) **Catchy Songs**, needed to track my _music listening habits_ and came to this idea to write my own script, using MPRIS.
-Obviously there are another services that are great and can do that but i wanted to have a full control about the the data that transmitted to the provided servers.
+Obviously there are another services that are great and can do that but i wanted to have a full control about the data that transmitted to the provided servers.
 Alongside that, using F# echo-system and it's unique approach to software development that brings functional programming in combine to .NET that seamlenslyy improved by performace, security and features in new versions was a great experience.
 It's not about F#. It's about this fact that there are another approachs to software development, in which the result product is efficent, easier to develop, deploy and maintenance.
 
@@ -68,7 +68,9 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## 🤝 Contributing
 
 We welcome contributions! Feel free to open issues, submit pull requests, or suggest new features.
-Keep in mind that there are room for improvements, and there are also known issues that will be fixed for next releases.
+Keep in mind that there are 
+
+always room for improvements, and there are also known issues that will be fixed for next releases.
 
 
 ## 📧 Contact
