@@ -70,7 +70,7 @@ module Helpers =
                 | _ ->
                 value
                 |> List.ofSeq 
-                |> List.fold (fun acc item -> acc + item)  "-"
+                |> List.fold (fun acc item -> acc + item)  ","
                 |> Some  
 
             let artists = getStringArrayValue XESAM_ARTIST
@@ -78,6 +78,7 @@ module Helpers =
             let album = getStringValue XESAM_ALBUM
             let length = getMicrosecondsValue MPRIS_LENGTH
             let url = getStringValue XESAM_URL
+            let genres = getStringArrayValue XESAM_GENRE
             let playerId = getStringValue CUSTOM_PLAYER_ID
 
             let metadataMapper = 
@@ -86,6 +87,7 @@ module Helpers =
                     nameof XESAM_TITLE, defaultArg title DEFAULT_TITLE
                     nameof XESAM_ALBUM, defaultArg album DEFAULT_ALBUM
                     nameof XESAM_URL, defaultArg url DEFAULT_URL
+                    nameof XESAM_GENRE, defaultArg (getStringFromArrayValue genres) DEFAULT_GENRE
                 ]
             
             match title with
