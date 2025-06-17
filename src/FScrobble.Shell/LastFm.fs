@@ -10,6 +10,7 @@ module LastFm =
     open System.IO
     open System.Net
     open FScrobble.Core.ReaderAsync
+    open System.Text.Json
 
     type Track =
         { Artist: string
@@ -105,7 +106,7 @@ module LastFm =
                 let! content = response.Content.ReadAsStringAsync() |> Async.AwaitTask
 
                 if response.IsSuccessStatusCode then
-                    let json = System.Text.Json.JsonDocument.Parse(content)
+                    let json = JsonDocument.Parse(content)
 
                     let sessionKey =
                         json.RootElement.GetProperty("session").GetProperty("key").GetString()
@@ -248,9 +249,7 @@ module LastFm =
 
     let scrobbleTrack
         (track: Track)
-        (credentials: ApiCredentials)
-        : ReaderAsync<AppDependencies, Result<unit, ScrobbleError>> =
-        readerAsync {
+        (credentials: ApiCredentials) = readerAsync {
             // TODO: let! and!
             let! (deps: AppDependencies) = ask
             let! sessionKeyResult = getSessionKeyOrAuthenticate ()
