@@ -63,7 +63,17 @@ module Helpers =
                     | _ -> None
                 | _ -> None
 
-            let artist = getStringArrayValue XESAM_ARTIST
+
+            let getStringFromArrayValue value =
+                match value with
+                | [] -> None 
+                | _ ->
+                value
+                |> List.ofSeq 
+                |> List.fold (fun acc item -> acc + item)  "-"
+                |> Some  
+
+            let artists = getStringArrayValue XESAM_ARTIST
             let title = getStringValue XESAM_TITLE
             let album = getStringValue XESAM_ALBUM
             let length = getMicrosecondsValue MPRIS_LENGTH
@@ -72,17 +82,17 @@ module Helpers =
 
             let metadataMapper = 
                 Map.ofList [
-                    XESAM_ARTIST, defaultArg (getStringValue XESAM_ARTIST) DEFAULT_ARTIST
-                    XESAM_TITLE, defaultArg title DEFAULT_TITLE
-                    XESAM_ALBUM, defaultArg album DEFAULT_ALBUM
-                    XESAM_URL, defaultArg url DEFAULT_URL
+                    nameof XESAM_ARTIST, defaultArg (getStringFromArrayValue artists) DEFAULT_ARTIST
+                    nameof XESAM_TITLE, defaultArg title DEFAULT_TITLE
+                    nameof XESAM_ALBUM, defaultArg album DEFAULT_ALBUM
+                    nameof XESAM_URL, defaultArg url DEFAULT_URL
                 ]
             
             match title with
             | Some title ->
                 let trackinfo = 
                     { Id = ""
-                      Artist = if List.isEmpty artist then [ DEFAULT_ARTIST ] else artist
+                      Artist = if List.isEmpty artists then [ DEFAULT_ARTIST ] else artists
                       Title = title
                       Album = album
                       Length = length
@@ -135,12 +145,21 @@ module Helpers =
                 | metaRules ->
                     metaRules
                     |> Map.forall (fun key patterns ->
-                        match metadata.TryFind key with
+                    match metadata.TryFind key with
                         | Some value ->
-                            patterns  |> Array.exists (fun pattern -> value.Contains( pattern.Replace("*", "")))
+                            patterns  |> Array.exists (fun pattern -> (normalize value).Contains( (normalize pattern).Replace("*", "")))
                         | None -> false
                     )
             else false
+        )
+
+    // Check if specified media player is white listed or not.
+    let isAllowedPlayer (playerName: string) (players: AllowedPlayer list) =
+          players |> List.exists (fun player ->
+            if (normalize playerName).Contains (normalize (player.Name.Replace("*", "")))   then
+                true
+            else 
+                false
         )
 
 
