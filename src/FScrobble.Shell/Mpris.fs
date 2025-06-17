@@ -62,7 +62,7 @@ module Mpris =
                                 let! status = player.GetPlaybackStatus() |> Async.AwaitTask
                                 let! metadata = player.MetadataAsync |> Async.AwaitTask
                                 metadata.Add(CUSTOM_PLAYER_ID,playerId)
-                                let trackInfo = Helpers.extractTrackInfo metadata
+                                let trackInfo = extractTrackInfo metadata
                                 let! position = player.Position |> Async.AwaitTask
                                 let! result =
                                     streamPoller

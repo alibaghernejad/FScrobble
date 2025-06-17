@@ -31,6 +31,9 @@ module Constants =
     let MPRIS_LENGTH = "mpris:length"
 
     [<Literal>]
+    let XESAM_GENRE = "xesam:genre"
+
+    [<Literal>]
     let CUSTOM_PLAYER_ID = "custom:playerid"
 
     // Default values for missing metadata
@@ -46,3 +49,6 @@ module Constants =
     let DEFAULT_DURATION = "noduration"
     [<Literal>] 
     let DEFAULT_PLAYER = "unknownplayer"
+    
+    [<Literal>] 
+    let DEFAULT_GENRE = "unknowngenre"
