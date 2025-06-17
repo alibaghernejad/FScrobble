@@ -50,12 +50,16 @@ module ScrobblingFilters =
         let! deps = ask
         let config = deps.Config.Scrobbling
         let outbox = deps.Outbox
+        let log = deps.Log
 
         let mapper = track.MetadataMap
         let isMetadataRulesOK = isAllowedPlayerMetadata (getPlayerId track.PlayerId) mapper (List.ofArray config.AllowedPlayers)
         let isWorthy = isTrackScrobbleWorthy config (track, startTime, effectivePlayTime)
         
-        if isMetadataRulesOK && isWorthy then
+        if not isMetadataRulesOK then
+            log Logging.Warning $"ScrobbleFilterCheck: Track {track.Id} with startTime={startTime}, effectivePlayTime={effectivePlayTime} is not allowed by metadata rules" None
+
+        if isMetadataRulesOK (*&& isWorthy*) then
             let! alreadyExists = outbox.Exists(track.PlayerId, track.Id, startTime)
             if not alreadyExists then
                 do! commitScrobble (track, startTime) outbox
