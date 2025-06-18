@@ -1,11 +1,11 @@
 # FScrobble
 A Music Scrobbling deamon service, written in F# and .NET.   
 **FScrobble** aims to be a _simple, reliable and efficient_ D-Bus and MPRIS music scrobbler service,    
-allowing users to track their **music listening habits** by automatically submitting track information to desired servers.   
+allowing users to track their **music listening habits** by automatically submitting track information to **Allowed servers**.   
 
 <img src="assets/fscrobble.png" alt="FScrobble Logo" width="35%" />   
 
-"Built with ❤ using F# and .NET, focusing on reliability and efficiency."  
+"Built with ❤ using F# and .NET."  
 ¹ **Footnote**: The pipe operator (`|>`) is a core feature of F# that allows you to pass the result of one function as an argument to another, enabling clean and readable functional code. The logo reflects this concept, symbolizing a pipeline of music streams that are meant to be scrobbled.
 
 
@@ -34,15 +34,61 @@ allowing users to track their **music listening habits** by automatically submit
 
 
 ## 🛠 Configuration
+FScrobble requires linking to at least one scrobbling server to function properly.  
+Running the application without configuring a server will result in no activity or functionality.  
 
+**Important:** FScrobble does not automatically scrobble musics for all MPRIS-compatible media players on your system. This is a deliberate design choice to protect your privacy. It is strongly recommended to explicitly allow only the media players you trust. 
+Additionally, FScrobble provides the flexibility to define metadata rules for each allowed media player, enabling fine-grained control over what gets scrobbled. 
+For more details, refer to the **Configuration** section.
+
+
+### Supported Scrobbling Servers:
+
+- [x] ![Last.fm](assets/lastfm-icon-48x48.png) **Last.fm** (Supported)
+- [ ] ![Libre.fm](assets/librefm-icon-48x48.png) **Libre.fm** (Comming soon!|Not Implemented Yet)
+- [ ] ![ListenBrainz](assets/listenbrainz-icon-48x48.png) **ListenBrainz** (Comming soon!|Not Implemented Yet)
+- [ ] ![Maloja](assets/maloja-icon.png) **Maloja** (Comming soon!|Not Implemented Yet)
+
+### Step-by-Step Workflow:
+
+1. Obtain your **API Key** and **Secret** from [Last.fm](https://www.last.fm/api/account/create). Ensure you have a Last.fm account to access these credentials.
 To configure your Last.fm API keys, use environment variables:
+2. Update the `settings.json` file or set the following environment variables with your credentials:
 
-```bash
-export LastFm__ApiKey=YOUR_API_KEY
-export LastFm__ApiSecret=YOUR_API_SECRET
-```
+   **Using Environment Variables:**
+   ```bash
+   export LastFm__ApiKey=YOUR_API_KEY
+   export LastFm__ApiSecret=YOUR_API_SECRET
+   ```
 
-Alternatively, you can create an `appsettings.Production.json` file for user overrides.
+   **Using `settings.json`:**
+   Create or update a `settings.json` file in the application's configuration directory with the following structure:
+   ```json
+   {
+     "LastFm": {
+       "ApiKey": "YOUR_API_KEY",
+       "ApiSecret": "YOUR_API_SECRET"
+     }
+   }
+   ```
+ 3. Initialize the connection to **Last.fm** by running the following command and following the on-screen instructions:
+      ```bash
+      cd FScrobble/FScrobble.Shell
+      dotnet run connect lastfm
+      ```
+4. If the setup is successful, you will see something like this message:
+   _"Connection to .. scrobbling server successfully initialized."_
+5. After completing the setup, close the program and start it in normal mode:
+   ```bash
+   dotnet run
+6. Verify that scrobbling is working by visiting your scrobbling dashboard and checking if your recently played tracks are being recorded.
+
+By default, FScrobble allows scrobbling for a limited set of MPRIS-compatible media players to ensure user privacy and security. 
+
+### Default Allowed Media Players:
+   - [**Musikcube**](https://musikcube.com): A lightweight CLI-based media player.
+   - [**YouTube Music**](https://music.youtube.com): A popular music streaming service.
+
 
 
 ## 💡 Why F# and .NET?
