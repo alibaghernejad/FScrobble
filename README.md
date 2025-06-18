@@ -120,6 +120,3 @@ Keep in mind that there is always room for improvement, and there are also known
 ## 📧 Contact
 
 For questions or feedback, reach out to us at [alibaghernezhad@gmail.com](mailto:aliaghernezhadl@gmail.com).
-
-
-¹ **Footnote**: The pipe operator (`|>`) is a core feature of F# that allows you to pass the result of one function as an argument to another, enabling clean and readable functional code. The logo reflects this concept, symbolizing a pipeline of music streams that are meant to be scrobbled.
