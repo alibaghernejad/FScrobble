@@ -47,7 +47,7 @@ For more details, refer to the **Configuration** section.
 - [x] ![Last.fm](assets/lastfm-icon-48x48.png) **Last.fm** (Supported)
 - [ ] ![Libre.fm](assets/librefm-icon-48x48.png) **Libre.fm** (Not Implemented yet)
 - [ ] ![ListenBrainz](assets/listenbrainz-icon-48x48.png) **ListenBrainz** (Not Implemented yet)
-- [ ] ![Maloja](assets/maloja-icon.png) **Maloja** (Not Implemented yet)
+- [ ] ![Maloja](assets/maloja-icon-32x32.png) **Maloja** (Not Implemented yet)
 
 ### Step-by-Step Workflow:
 
