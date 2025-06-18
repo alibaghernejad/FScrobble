@@ -45,9 +45,9 @@ For more details, refer to the **Configuration** section.
 ### Supported Scrobbling Servers:
 
 - [x] ![Last.fm](assets/lastfm-icon-48x48.png) **Last.fm** (Supported)
-- [ ] ![Libre.fm](assets/librefm-icon-48x48.png) **Libre.fm** (Comming soon!|Not Implemented Yet)
-- [ ] ![ListenBrainz](assets/listenbrainz-icon-48x48.png) **ListenBrainz** (Comming soon!|Not Implemented Yet)
-- [ ] ![Maloja](assets/maloja-icon.png) **Maloja** (Comming soon!|Not Implemented Yet)
+- [ ] ![Libre.fm](assets/librefm-icon-48x48.png) **Libre.fm** (Not Implemented yet)
+- [ ] ![ListenBrainz](assets/listenbrainz-icon-48x48.png) **ListenBrainz** (Not Implemented yet)
+- [ ] ![Maloja](assets/maloja-icon.png) **Maloja** (Not Implemented yet)
 
 ### Step-by-Step Workflow:
 
