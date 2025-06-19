@@ -52,3 +52,4 @@ project.assets.json
 # OS specific
 .DS_Store
 Thumbs.db
+wget-log
