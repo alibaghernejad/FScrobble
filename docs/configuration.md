@@ -66,7 +66,7 @@ Here is an updated table with a column for default values:
 | **Scrobbling.AllowedPlayers** | List of media players allowed for scrobbling (e.g., Spotify, Rhythmbox, Firefox). | `["spotify*", "rhytmbox*", "firefox"]` |
 | **Scrobbling.ThresholdFixed** | Fixed threshold for scrobbling a track (e.g., 4 minutes).                      | `"00:04:00"`                   |
 | **Scrobbling.ThresholdFraction** | Fractional threshold for scrobbling (e.g., 50% of track duration).           | `0.5`                          |
-| **Scrobbling.ThresholdMin** | Minimum threshold for scrobbling a track (e.g., 1 minute 30 seconds).           | `"00:01:30"`                   |
+| **Scrobbling.ThresholdMin** | Defines the minimum duration a track must play before it can be scrobbled (e.g., 1 minute 30 seconds). This helps prevent short audio files, such as ads or jingles, from being scrobbled. The default value is optimized for most scenarios, and changes are generally not recommended unless specific use cases require adjustment. | `"00:01:30"` |
 | **LastFm.ApiKey**            | API key for accessing the Last.fm service.                                     | `""` (Empty by default)        |
 | **LastFm.ApiSecret**         | API secret for authenticating with the Last.fm service.                        | `""` (Empty by default)        |
 | **LastFm.BaseUrl**           | Base URL for the Last.fm API (e.g., `https://ws.audioscrobbler.com/2.0/`).      | `"https://ws.audioscrobbler.com/2.0/"` |
