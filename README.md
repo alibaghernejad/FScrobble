@@ -3,9 +3,10 @@ A Music Scrobbling deamon service, written in F# and .NET.
 **FScrobble** aims to be a _simple, reliable and efficient_ D-Bus and MPRIS music scrobbler service,    
 allowing users to track their **music listening habits** by automatically submitting track information to **Allowed servers**.   
 
-<img src="assets/fscrobble.png" alt="FScrobble Logo" width="35%" />   
+<img src="assets/fscrobble-v0.0.2.png" alt="FScrobble Logo" width="35%" />   
 
 "Built with ❤ using F# and .NET."  
+
 ¹ **Footnote**: The pipe operator (`|>`) is a core feature of F# that allows you to pass the result of one function as an argument to another, enabling clean and readable functional code. The logo reflects this concept, symbolizing a pipeline of music streams that are meant to be scrobbled.
 
 
