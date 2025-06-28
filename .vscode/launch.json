@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug FScrobble",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/FScrobble.Shell/bin/Debug/net9.0/FScrobble.Shell.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/FScrobble.Shell",
+            "console": "internalConsole",
+            "stopAtEntry": false,           
+
+        },
+        {
+            "name": "Debug FScrobble CLI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/FScrobble.Shell/bin/Debug/net9.0/FScrobble.Shell.dll",
+            "args": [
+                "connect",
+                "lastfm"
+            ],
+            "cwd": "${workspaceFolder}/src/FScrobble.Shell",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "justMyCode": false
+        }
+    ]
+}

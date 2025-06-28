@@ -1,0 +1,87 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/FScrobble.Shell/FScrobble.Shell.fsproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "--configuration", "Debug"
+
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command":"dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/FScrobble.Shell/FScrobble.Shell.fsproj",
+                "-r",
+                "linux-x64",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary",
+                "--configuration", "Release",
+                "/p:PublishTrimmed=true",
+                "/p:InvariantGlobalization=true",
+                "/p:SelfContained=true",
+                "/p:SatelliteResourceLanguages=",
+                "/p:IncludeSymbols=false",
+
+            ],
+            "problemMatcher": "$msCompile",
+            "dependsOn": ["pre-publish"]
+        },
+        {
+            "label": "pre-publish",
+            "command": "rm",
+            "type": "shell",
+            "args": [
+                "-rf",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "clean",
+                "${workspaceFolder}/src/FScrobble.Shell/FScrobble.Shell.fsproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publishandcleanup",
+            "command": "rm",
+            "type": "shell",
+            "args": [
+                "-rf",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/cs",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/zh-Hant",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/zh-Hans",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/tr",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/ru",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/pt-BR",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/pl",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/ko",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/ja",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/it",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/fr",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/es",
+                "${workspaceFolder}/src/FScrobble.Shell/bin/Release/net9.0/linux-x64/publish/de"
+            ],
+            "problemMatcher": [],
+            "dependsOn": ["publish"]
+        }
+
+    ]
+}
