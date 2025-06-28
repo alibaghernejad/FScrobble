@@ -22,7 +22,7 @@ jobs:
         run: dotnet restore src/FScrobble.Shell/FScrobble.Shell.fsproj
 
       - name: Build project
-        run: dotnet build src/FScrobble.Shell/FScrobble.Shell.fsproj --configuration Release /p:BuildNumber ${{ github.run_number }}
+        run: dotnet build src/FScrobble.Shell/FScrobble.Shell.fsproj --configuration Release /p:BuildNumber=${{ github.run_number }}
 
       - name: Publish project
         run: dotnet publish src/FScrobble.Shell/FScrobble.Shell.fsproj -r linux-x64 --configuration Release --self-contained true --output ./publish
