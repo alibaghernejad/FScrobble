@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,21 +27,25 @@ jobs:
           assemblyVersion=$(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           assemblyFileVersion=$(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           assemblyInformationVersion=$(grep -oPm1 "(?<=<AssemblyInformationVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
-          buildVersion=${{ steps.retrieve-versions.outputs.assembly_version }}
-          assemblyInformationVersion="$assemblyInformationVersion//$(BuildVersion)/$buildVersion}"
+          buildVersion=${{ github.run_number }}
+          assemblyInfo=$(echo "$assemblyInformationVersion" | sed "s/\$(BuildNumber)/$buildVersion/")
 
           echo "Assembly Version: $assemblyVersion"
           echo "Assembly File Version: $assemblyFileVersion"
-          echo "assembly_version=$assemblyVersion" >> GITHUB_OUTPUT
-          echo "assembly_file_version=$assemblyFileVersion" >> GITHUB_OUTPUT
-          echo "assembly_information=$assemblyInformationVersion" >> GITHUB_OUTPUT
+          echo "Assembly Information Version: $assemblyInformationVersion"
+          echo "assembly_version=$assemblyVersion" >> "$GITHUB_OUTPUT"
+          echo "assembly_file_version=$assemblyFileVersion" >> "$GITHUB_OUTPUT"
+          echo "assembly_information=$assemblyInfo" >> "$GITHUB_OUTPUT"
+
       
       - name: Create git Tag
         run: |
+          version_information_handle=${{ steps.retrieve-versions.outputs.assembly_information }}
+          echo $version_information_handle
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com" 
-          git tag -a ${{ steps.retrieve-versions.outputs.assembly_version }} -m "Release version ${{ steps.retrieve-versions.outputs.assembly_version }}"
-          git push origin ${{ steps.retrieve-versions.outputs.assembly_version }}
+          git tag -a $version_information_handle -m "Release version $version_information_handle"
+          git push origin $version_information_handle
 
       - name: Push all tags
         run: git push --tags
@@ -68,6 +75,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: ${{ steps.retrieve-versions.outputs.assembly_information }}
           files: ./publish/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
