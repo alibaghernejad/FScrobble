@@ -27,6 +27,7 @@ jobs:
       - name: Publish project
         run: dotnet publish src/FScrobble.Shell/FScrobble.Shell.fsproj -r linux-x64 --configuration Release --self-contained true --output ./publish
 
+
       - name: Upload release artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -36,8 +37,26 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-
+    
+    
     steps:
+      - name: Retrieve Assembly Versions
+        id: retrieve-versions
+        run: |
+          assemblyVersion = $(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
+          assemblyFileVersion = $(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
+          echo "Assembly Version: $assemblyVersion"
+          echo "Assembly File Version: $assemblyFileVersion"
+          echo "assembly_version=$assemblyVersion" >> GITHUB_OUTPUT
+          echo "assembly_file_version=$assemblyFileVersion" >> GITHUB_OUTPUT
+      
+      - name: Create git Tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com" 
+          git tag -a ${{ steps.retrieve-versions.outputs.assembly_version }} -m "Release version ${{ steps.retrieve-versions.outputs.assembly_version }}"
+          git push origin ${{ steps.retrieve-versions.outputs.assembly_version }}
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
