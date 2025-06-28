@@ -25,8 +25,8 @@ jobs:
           assemblyFileVersion=$(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           echo "Assembly Version: $assemblyVersion"
           echo "Assembly File Version: $assemblyFileVersion"
-          echo "assembly_version=$assemblyVersion" >> GITHUB_OUTPUT
-          echo "assembly_file_version=$assemblyFileVersion" >> GITHUB_OUTPUT
+          echo "assembly_version=$assemblyVersion" >> $"GITHUB_OUTPUT"
+          echo "assembly_file_version=$assemblyFileVersion" >> $"GITHUB_OUTPUT"
       
       - name: Create git Tag
         run: |
