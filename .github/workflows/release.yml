@@ -21,8 +21,8 @@ jobs:
       - name: Retrieve Assembly Versions
         id: retrieve-versions
         run: |
-          assemblyVersion = $(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
-          assemblyFileVersion = $(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
+          assemblyVersion=$(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
+          assemblyFileVersion=$(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           echo "Assembly Version: $assemblyVersion"
           echo "Assembly File Version: $assemblyFileVersion"
           echo "assembly_version=$assemblyVersion" >> GITHUB_OUTPUT
