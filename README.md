@@ -38,7 +38,7 @@ allowing users to track their **music listening habits** by automatically submit
 FScrobble requires linking to at least one scrobbling server to function properly.  
 Running the application without configuring a server will result in no activity or functionality.  
 
-**Important:** FScrobble does not automatically scrobble musics for all MPRIS-compatible media players on your system. This is a deliberate design choice to protect your privacy. It is strongly recommended to explicitly allow only the media players you trust. 
+**Important:** FScrobble <u>does not</u> automatically <u>scrobble</u> music for <u>all MPRIS-compatible media players</u> on your system <u>by default</u>. This is a deliberate design choice to protect your privacy. It is strongly recommended to explicitly allow only the media players you trust. 
 Additionally, FScrobble provides the flexibility to define metadata rules for each allowed media player, enabling fine-grained control over what gets scrobbled. 
 For more details, refer to the **Configuration** section.
 
@@ -87,9 +87,12 @@ To configure your Last.fm API keys, use environment variables:
 By default, FScrobble allows scrobbling for a limited set of MPRIS-compatible media players to ensure user privacy and security. 
 
 ### Default Allowed Media Players:
+These are the default allowed media players rules and can be configured as you wish.  
+Two media players are allowed by default. That means the music streams from these media players are tracked for scrobbling:
    - [**Musikcube**](https://musikcube.com): A lightweight CLI-based media player.
-   - [**YouTube Music**](https://music.youtube.com): A popular music streaming service.
+   - [**YouTube Music**](https://music.youtube.com): A popular music streaming service. Allowed on Firefox ([Zen-Browser](https://zen-browser.app/))
 
+There are only two allowed media players by default: **Musikcube** and **YouTube Music (on Firefox)**.
 
 
 ## 💡 Why F# and .NET?
