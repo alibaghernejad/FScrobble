@@ -1,0 +1,46 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/FScrobble.Shell/FScrobble.Shell.fsproj
+
+      - name: Build project
+        run: dotnet build src/FScrobble.Shell/FScrobble.Shell.fsproj --configuration Release
+
+      - name: Publish project
+        run: dotnet publish src/FScrobble.Shell/FScrobble.Shell.fsproj -r linux-x64 --configuration Release --self-contained true --output ./publish
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: FScrobble-linux-x64
+          path: ./publish
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./publish/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
