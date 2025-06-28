@@ -39,6 +39,14 @@
       <DebugType>None</DebugType>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <!-- Set the AssemblyVersion to only include the major version -->
+    <AssemblyVersion>0.1.0-beta.$(BuildNumber)</AssemblyVersion>
+    
+    <!-- Include a CI build number in the AssemblyFileVersion -->
+    <AssemblyFileVersion>0.1.0.$(BuildNumber)</AssemblyFileVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="Scripts\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
