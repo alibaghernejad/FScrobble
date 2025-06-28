@@ -28,7 +28,7 @@ jobs:
         run: dotnet publish src/FScrobble.Shell/FScrobble.Shell.fsproj -r linux-x64 --configuration Release --self-contained true --output ./publish
 
       - name: Upload release artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: FScrobble-linux-x64
           path: ./publish
