@@ -23,10 +23,15 @@ jobs:
         run: |
           assemblyVersion=$(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           assemblyFileVersion=$(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
+          assemblyInformationVersion=$(grep -oPm1 "(?<=<AssemblyInformationVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
+          buildVersion=${{ steps.retrieve-versions.outputs.assembly_version }}
+          assemblyInformationVersion="$assemblyInformationVersion//$(BuildVersion)/$buildVersion}"
+
           echo "Assembly Version: $assemblyVersion"
           echo "Assembly File Version: $assemblyFileVersion"
-          echo "assembly_version=$assemblyVersion" >> $"GITHUB_OUTPUT"
-          echo "assembly_file_version=$assemblyFileVersion" >> $"GITHUB_OUTPUT"
+          echo "assembly_version=$assemblyVersion" >> GITHUB_OUTPUT
+          echo "assembly_file_version=$assemblyFileVersion" >> GITHUB_OUTPUT
+          echo "assembly_information=$assemblyInformationVersion" >> GITHUB_OUTPUT
       
       - name: Create git Tag
         run: |
