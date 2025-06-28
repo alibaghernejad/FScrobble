@@ -39,12 +39,19 @@
       <DebugType>None</DebugType>
   </PropertyGroup>
 
+  
+  <!-- Default Versioning Info -->
+  <PropertyGroup>
+      <BuildNumber>0</BuildNumber>
+  </PropertyGroup>
+
   <PropertyGroup>
     <!-- Set the AssemblyVersion to only include the major version -->
-    <AssemblyVersion>0.1.0-beta.$(BuildNumber)</AssemblyVersion>
+    <AssemblyVersion>0.1.0.$(BuildNumber)</AssemblyVersion>
     
     <!-- Include a CI build number in the AssemblyFileVersion -->
     <AssemblyFileVersion>0.1.0.$(BuildNumber)</AssemblyFileVersion>
+    <AssemblyInformationVersion>0.1.0-beta.$(BuildNumber)</AssemblyInformationVersion>
   </PropertyGroup>
 
   <ItemGroup>
