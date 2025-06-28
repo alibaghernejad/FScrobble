@@ -5,10 +5,15 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    outputs:
+      
+      assembly_information: ${{ steps.retrieve-versions.outputs.assembly_information }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,24 +29,36 @@ jobs:
           assemblyVersion=$(grep -oPm1 "(?<=<AssemblyVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           assemblyFileVersion=$(grep -oPm1 "(?<=<AssemblyFileVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
           assemblyInformationVersion=$(grep -oPm1 "(?<=<AssemblyInformationVersion>)[^<]+" src/FScrobble.Shell/FScrobble.Shell.fsproj)
-          buildVersion=${{ steps.retrieve-versions.outputs.assembly_version }}
-          assemblyInformationVersion="$assemblyInformationVersion//$(BuildVersion)/$buildVersion}"
+          buildVersion=${{ github.run_number }}
+          assemblyInfo=$(echo "$assemblyInformationVersion" | sed "s/\$(BuildNumber)/$buildVersion/")
 
           echo "Assembly Version: $assemblyVersion"
           echo "Assembly File Version: $assemblyFileVersion"
-          echo "assembly_version=$assemblyVersion" >> GITHUB_OUTPUT
-          echo "assembly_file_version=$assemblyFileVersion" >> GITHUB_OUTPUT
-          echo "assembly_information=$assemblyInformationVersion" >> GITHUB_OUTPUT
+          echo "Assembly Information Version: $assemblyInformationVersion"
+          echo "assembly_version=$assemblyVersion" >> $GITHUB_OUTPUT
+          echo "assembly_file_version=$assemblyFileVersion" >> $GITHUB_OUTPUT
+          echo "assembly_information=$assemblyInfo" >> $GITHUB_OUTPUT
+
       
       - name: Create git Tag
         run: |
+          version_information_handle=${{ steps.retrieve-versions.outputs.assembly_information }}
+          echo $version_information_handle
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com" 
-          git tag -a ${{ steps.retrieve-versions.outputs.assembly_version }} -m "Release version ${{ steps.retrieve-versions.outputs.assembly_version }}"
-          git push origin ${{ steps.retrieve-versions.outputs.assembly_version }}
+          git tag -a $version_information_handle -m "Release version $version_information_handle"
+          git push origin $version_information_handle
 
       - name: Push all tags
         run: git push --tags
+
+      - name: Checkout tags 
+        run: |
+          git fetch --tags
+          echo "Current tags:"
+          git tag --list
+          echo "Fetched tags successfully."
+          echo "Total number of tags: $(git tag | wc -l)"
 
       - name: Restore dependencies
         run: dotnet restore src/FScrobble.Shell/FScrobble.Shell.fsproj
@@ -63,11 +80,16 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     
-    steps:
+    steps:    
+
+      - name: Echo Release Info
+        id: release_info
+        run: echo "Version Info ${{ needs.build.outputs.assembly_information }} "
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ needs.build.outputs.assembly_information }}
           files: ./publish/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
