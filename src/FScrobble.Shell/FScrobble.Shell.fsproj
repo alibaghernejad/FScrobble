@@ -51,7 +51,7 @@
     
     <!-- Include a CI build number in the AssemblyFileVersion -->
     <AssemblyFileVersion>0.1.0.$(BuildNumber)</AssemblyFileVersion>
-    <AssemblyInformationVersion>0.1.0-beta.$(BuildNumber)</AssemblyInformationVersion>
+    <AssemblyInformationVersion>v0.1.0-beta.$(BuildNumber)</AssemblyInformationVersion>
   </PropertyGroup>
 
   <ItemGroup>
