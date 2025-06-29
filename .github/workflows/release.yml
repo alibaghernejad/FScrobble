@@ -85,6 +85,9 @@ jobs:
         id: release_info
         run: echo "Version Info ${{ needs.build.outputs.assembly_information }} "
 
+      - name: Echo Published Files
+        run: ls -R ./publish
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
