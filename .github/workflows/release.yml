@@ -81,21 +81,28 @@ jobs:
     
     steps:    
 
-      - name: Download release artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: FScrobble-linux-x64
-
       - name: Echo Release Info
         id: release_info
         run: echo "Version Info ${{ needs.build.outputs.assembly_information }} "
 
+      - name: Download release artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: FScrobble-linux-x64
+          path: ./publish
+          
       - name: Verify Downloaded Files
-        run: ls -R
+        run: ls -R ./publish
+
+      - name: Create Archive File
+        run: |
+          tar -czf "FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz" -C ./publish .
+          echo "Archive created successfully."  
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.build.outputs.assembly_information }}
+          files: ./FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
