@@ -81,17 +81,18 @@ jobs:
     
     steps:    
 
-      - name: Download release artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: FScrobble-linux-x64
-
       - name: Echo Release Info
         id: release_info
         run: echo "Version Info ${{ needs.build.outputs.assembly_information }} "
 
+      - name: Download release artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: FScrobble-linux-x64
+          path: ./publish
+          
       - name: Verify Downloaded Files
-        run: ls -R
+        run: ls -R ./publish
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
