@@ -12,7 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      
       assembly_information: ${{ steps.retrieve-versions.outputs.assembly_information }}
     steps:
       - name: Checkout code
@@ -90,6 +89,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.build.outputs.assembly_information }}
-          files: ./publish/*
+          files: ./publish/FScrobble-linux-x64
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
