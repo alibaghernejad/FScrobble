@@ -11,7 +11,6 @@ open FScrobble.Shell.MessageQueue
 open FScrobble.Core.Models
 open System
 open System.Threading
-open FScrobble.Core.Messaging
 
 let buildAppDependencies (cfg: IConfiguration, logger: ILogger, ct:CancellationToken) : AppDependencies =
     let log = createLogger logger

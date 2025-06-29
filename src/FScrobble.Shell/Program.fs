@@ -3,23 +3,38 @@ namespace FScrobble.Shell
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open FScrobble.Shell.CommandLineInterface
+open System.Linq
 
 module Program =
     open Microsoft.Extensions.Logging
     open FScrobble.Core
     open System.Threading
+    open System.Diagnostics
+    open System.IO
+    open System
+    open Microsoft.Extensions.Configuration
 
     [<EntryPoint>]
     let main args =
 
-        let builder = Host.CreateApplicationBuilder(args)
-        builder.Services.AddHostedService<ScrobblingDeamon>() |> ignore
-        let host = builder.Build()
+        let contentRoot = AppDomain.CurrentDomain.BaseDirectory
+        printfn "Current directory set to: %s" (Directory.GetCurrentDirectory())
+        
+        let builder = Host.CreateDefaultBuilder(args)
+        let host = 
+            builder
+                .UseContentRoot(contentRoot) 
+                .ConfigureServices(fun ctx services ->
+                    services.AddHostedService<ScrobblingDaemon>() |> ignore
+                )
+                .Build()
+                
+
         let ctSource = new CancellationTokenSource()
         let ct = ctSource.Token
-        
+
         let logger = host.Services.GetService<ILogger>()
-        let deps = CompositionRoot.buildAppDependencies (builder.Configuration, logger, ct)
+        let deps = CompositionRoot.buildAppDependencies (host.Services.GetRequiredService<IConfiguration>(), logger, ct)
 
         match List.ofArray (args) with
         | [] -> host.Run()

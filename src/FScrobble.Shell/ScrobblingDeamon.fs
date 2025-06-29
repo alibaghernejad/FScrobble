@@ -28,7 +28,7 @@ type LoopDetectionResult =
     | LoopDetected of PlaybackState
     | NoLoop of PlaybackState
 
-type ScrobblingDeamon(logger: ILogger<ScrobblingDeamon>, configuration: IConfiguration) =
+type ScrobblingDaemon(logger: ILogger<ScrobblingDaemon>, configuration: IConfiguration) =
     inherit BackgroundService()
 
     let log = createLogger logger
@@ -191,7 +191,7 @@ type ScrobblingDeamon(logger: ILogger<ScrobblingDeamon>, configuration: IConfigu
                     do! Task.Delay(1000, ct)
 
             with ex ->
-                log Error (sprintf "Error in %s service" <| nameof ScrobblingDeamon) (Some ex)
+                log Error (sprintf "Error in %s service" <| nameof ScrobblingDaemon) (Some ex)
                 return raise ex
         }
 
