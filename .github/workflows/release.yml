@@ -94,6 +94,25 @@ jobs:
       - name: Verify Downloaded Files
         run: ls -R ./publish
 
+      - name: File and Folders Cleanup
+        run: |
+          rm -rf \
+          ./publish/cs \
+          ./publish/zh-Hant \
+          ./publish/zh-Hans \
+          ./publish/tr \
+          ./publish/ru \
+          ./publish/pt-BR \
+          ./publish/pl \
+          ./publish/ko \
+          ./publish/ja \
+          ./publish/it \
+          ./publish/fr \
+          ./publish/es \
+          ./publish/de
+          echo "Publish directory cleaned up."
+
+
       - name: Create Archive File
         run: |
           chmod +x ./publish/FScrobble.Shell
