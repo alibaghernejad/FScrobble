@@ -133,9 +133,9 @@ module Helpers =
     /// Convert enumerables like Dictionary to Map
     let inline toMap v =
         match v with
-        | None -> Map.empty
-        | Some d -> 
-            d
+        | null -> Map.empty
+        | _  -> 
+            v
             |> Seq.map (|KeyValue|)
             |> Map.ofSeq
 

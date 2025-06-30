@@ -15,13 +15,13 @@ module AppConfigurations =
     [<CLIMutable>]
     type AllowedPlayer =
         { Name: string
-          Metadata: Dictionary<string, string array> option }
+          Metadata: Dictionary<string, string []>  }
           
     [<CLIMutable>]
     type Scrobbling =
         { PlaybackPollInterval: TimeSpan
           MprisServicesPollInterval: TimeSpan
-          AllowedPlayers: AllowedPlayer array
+          AllowedPlayers: AllowedPlayer []
           ThresholdFixed: TimeSpan
           ThresholdFraction: float
           ThresholdMin: TimeSpan }
