@@ -96,7 +96,7 @@ jobs:
 
       - name: Create Archive File
         run: |
-          tar -czf "FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz" -C ./publish .
+          tar -czvf  "FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz" -C ./publish .
           echo "Archive created successfully."  
 
       - name: Create GitHub Release
