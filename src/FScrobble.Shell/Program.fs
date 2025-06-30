@@ -33,7 +33,8 @@ module Program =
         let ctSource = new CancellationTokenSource()
         let ct = ctSource.Token
 
-        let logger = host.Services.GetService<ILogger>()
+        let loggerFactory = host.Services.GetService<ILoggerFactory>()
+        let logger = loggerFactory.CreateLogger("FScrobble.Shell")
         let deps = CompositionRoot.buildAppDependencies (host.Services.GetRequiredService<IConfiguration>(), logger, ct)
 
         match List.ofArray (args) with

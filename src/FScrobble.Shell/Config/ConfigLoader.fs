@@ -13,23 +13,8 @@ module ConfigLoader =
       | null -> fallback
       | value -> value
 
-    let load2 (cfg: IConfiguration) : AppConfigurations =
+    let load (cfg: IConfiguration) : AppConfigurations =
         { Logging = tryGet cfg "Logging" Configurations.Defaults.logging
           Scrobbling = tryGet cfg "Scrobbling" Configurations.Defaults.scrobbling
           LastFm = tryGet cfg "LastFm" Configurations.Defaults.lastFm
           LibreFm = tryGet cfg "LibreFm" Configurations.Defaults.libreFm }
-
-    let load (cfg: IConfiguration) : AppConfigurations =
-        // let defaultScrobblingConfig = {PollForScrobbleMs =2000; AllowedPlayers=[||]  }
-        
-        // let section = cfg.GetSection("Scrobbling:AllowedPlayers").Get<AllowedPlayer>()
-        let res = 
-          { Logging = cfg.GetSection("Logging").Get<Logging>()
-            Scrobbling = cfg.GetSection("Scrobbling").Get<Scrobbling>()
-
-            LastFm = cfg.GetSection("LastFM").Get<LastFm>()
-            LibreFm = cfg.GetSection("LastFM").Get<LibreFm>()
-            // MusicBrainz = cfg.GetSection("LastFM").Get<MusicBrainz>()
-            
-          }
-        res
