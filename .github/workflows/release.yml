@@ -66,7 +66,9 @@ jobs:
         run: dotnet build src/FScrobble.Shell/FScrobble.Shell.fsproj --configuration Release /p:BuildNumber=${{ github.run_number }}
 
       - name: Publish project
-        run: dotnet publish src/FScrobble.Shell/FScrobble.Shell.fsproj -r linux-x64 --configuration Release --self-contained true --output ./publish
+        run: |
+          dotnet publish src/FScrobble.Shell/FScrobble.Shell.fsproj -r linux-x64 --configuration Release --self-contained true --output ./publish
+          chmod +x ./publish/FScrobble.Shell
 
 
       - name: Upload release artifacts
