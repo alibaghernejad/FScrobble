@@ -15,8 +15,8 @@ module AppConfigurations =
     [<CLIMutable>]
     type AllowedPlayer =
         { Name: string
-          Metadata: Dictionary<string, string array>   }
-
+          Metadata: Dictionary<string, string array> option }
+          
     [<CLIMutable>]
     type Scrobbling =
         { PlaybackPollInterval: TimeSpan

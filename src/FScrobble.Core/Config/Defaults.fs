@@ -7,7 +7,7 @@ module Defaults =
 
     let allowedPlayer : AllowedPlayer =
         { Name = ""
-          Metadata = Dictionary() }
+          Metadata = Some (Dictionary()) }
 
     let scrobbling : Scrobbling =
         { PlaybackPollInterval = TimeSpan.FromSeconds(3.0)
