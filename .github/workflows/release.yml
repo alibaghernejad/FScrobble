@@ -113,16 +113,20 @@ jobs:
           echo "Publish directory cleaned up."
 
 
-      - name: Create Archive File
+      - name: Create Archive Files
         run: |
           chmod +x ./publish/FScrobble.Shell
           tar --owner=0 --group=0 --numeric-owner -czvf "FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz" -C ./publish .
-          echo "Archive created successfully."  
+          cp FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz FScrobble-latest-linux-x64.tar.gz
+
+          echo "Archive files created successfully."  
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.build.outputs.assembly_information }}
-          files: ./FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz
+          files: |
+            ./FScrobble-${{ needs.build.outputs.assembly_information }}-linux-x64.tar.gz 
+            ./FScrobble-latest-linux-x64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
