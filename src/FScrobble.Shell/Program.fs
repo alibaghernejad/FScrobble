@@ -13,29 +13,31 @@ module Program =
     open System.IO
     open System
     open Microsoft.Extensions.Configuration
+    open FScrobble.Core.Dependencies
 
     [<EntryPoint>]
     let main args =
 
         let contentRoot = AppDomain.CurrentDomain.BaseDirectory
         printfn "Current directory set to: %s" (Directory.GetCurrentDirectory())
+        let ctSource = new CancellationTokenSource()
+        let ct = ctSource.Token
         
         let builder = Host.CreateDefaultBuilder(args)
         let host = 
             builder
                 .UseContentRoot(contentRoot) 
                 .ConfigureServices(fun ctx services ->
-                    services.AddHostedService<ScrobblingDaemon>() |> ignore
+                    services
+                        .AddHostedService<ScrobblingDaemon>() 
+                        .AddSingleton<AppDependencies>(fun a -> 
+                            let loggerFactory = a.GetService<ILoggerFactory>()
+                            let logger = loggerFactory.CreateLogger("FScrobble.Shell")
+                            CompositionRoot.buildAppDependencies (a.GetRequiredService<IConfiguration>(), logger, ct))
+                          |> ignore
                 )
-                .Build()
-                
-
-        let ctSource = new CancellationTokenSource()
-        let ct = ctSource.Token
-
-        let loggerFactory = host.Services.GetService<ILoggerFactory>()
-        let logger = loggerFactory.CreateLogger("FScrobble.Shell")
-        let deps = CompositionRoot.buildAppDependencies (host.Services.GetRequiredService<IConfiguration>(), logger, ct)
+                .Build()              
+        let deps = host.Services.GetRequiredService<AppDependencies>()
 
         match List.ofArray (args) with
         | [] -> host.Run()

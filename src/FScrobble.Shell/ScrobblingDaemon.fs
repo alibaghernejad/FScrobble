@@ -11,6 +11,8 @@ open FSharp.Control
 open FScrobble.Core.Models
 open FScrobble.Shell.Logging
 open FScrobble.Shell.Mpris
+open ReaderAsync
+open FScrobble.Core.Dependencies
 
 type TrackPositionState =
     { TrackId: string
@@ -27,7 +29,10 @@ type LoopDetectionResult =
     | LoopDetected of PlaybackState
     | NoLoop of PlaybackState
 
-type ScrobblingDaemon(logger: ILogger<ScrobblingDaemon>, configuration: IConfiguration) =
+type ScrobblingDaemon(
+    logger: ILogger<ScrobblingDaemon>, 
+    configuration: IConfiguration,
+    deps: AppDependencies) =
     inherit BackgroundService()
 
     let log = createLogger logger
@@ -217,16 +222,15 @@ type ScrobblingDaemon(logger: ILogger<ScrobblingDaemon>, configuration: IConfigu
     override _.ExecuteAsync(ct: CancellationToken) =
         task {
             try
-                let deps = CompositionRoot.buildAppDependencies (configuration, logger, ct)
-
-                let longRunningTask = watchMediaPlayers pollMediaPlayer
-                let r = ReaderAsync.run longRunningTask deps
-                do! r |> Async.StartAsTask
+                let scrobblingDeaemonRunner = watchMediaPlayers pollMediaPlayer
+                let scrobblingDeaemon = run scrobblingDeaemonRunner deps
+                do! scrobblingDeaemon |> Async.StartAsTask
 
                 while not ct.IsCancellationRequested do
                     do! Task.Delay(1000, ct)
 
             with ex ->
-                log Error (sprintf "Error in %s service" <| nameof ScrobblingDaemon) (Some ex)
+                log Error (sprintf "Error in %s daemon service" <| nameof ScrobblingDaemon) (Some ex)
                 return raise ex
         }
+
