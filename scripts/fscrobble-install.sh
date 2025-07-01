@@ -20,7 +20,7 @@ TMP_DIR="$(mktemp -d)"
 ARCHIVE_NAME="fscrobble.tar.gz"
 
 echo "Fetching latest release info..."
-API_JSON=$(curl -s "https://api.github.com/repos/$REPO/releases/latest")
+API_JSON=$(wget -qO- "https://api.github.com/repos/$REPO/releases/latest")
 DOWNLOAD_URL=$(echo "$API_JSON" | grep "browser_download_url" | grep "linux-x64.*tar.gz" | head -n1 | cut -d '"' -f 4)
 
 if [ -z "$DOWNLOAD_URL" ]; then
@@ -31,7 +31,7 @@ fi
 echo "Found release: $DOWNLOAD_URL"
 
 echo "Downloading release archive..."
-curl -L "$DOWNLOAD_URL" -o "$TMP_DIR/$ARCHIVE_NAME"
+wget -qO "$TMP_DIR/$ARCHIVE_NAME" "$DOWNLOAD_URL"
 
 echo "Extracting to $INSTALL_DIR..."
 mkdir -p "$INSTALL_DIR"
@@ -49,7 +49,7 @@ ln -sf "$MAIN_BIN" "$BIN_LINK"
 
 echo "Downloading systemd user service template..."
 mkdir -p "$SERVICE_DIR"
-curl -sL "$SERVICE_TEMPLATE_URL" -o "$TMP_DIR/$SERVICE_TEMPLATE_NAME"
+wget -qO "$TMP_DIR/$SERVICE_TEMPLATE_NAME" "$SERVICE_TEMPLATE_URL"
 
 echo "Installing user systemd unit at $SERVICE_FILE..."
 sed \
