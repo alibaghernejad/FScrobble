@@ -13,15 +13,16 @@ module AppConfigurations =
     type Logging = { LogLevel: LogLevel }
 
     [<CLIMutable>]
+    [<Struct>]
     type AllowedPlayer =
         { Name: string
-          Metadata: Dictionary<string, string []>  }
-          
+          Metadata: Dictionary<string, string[]> }
+
     [<CLIMutable>]
     type Scrobbling =
         { PlaybackPollInterval: TimeSpan
           MprisServicesPollInterval: TimeSpan
-          AllowedPlayers: AllowedPlayer []
+          AllowedPlayers: AllowedPlayer[]
           ThresholdFixed: TimeSpan
           ThresholdFraction: float
           ThresholdMin: TimeSpan }
@@ -48,4 +49,3 @@ module AppConfigurations =
           LibreFm: LibreFm
         // MusicBrainz: MusicBrainz
         }
-
