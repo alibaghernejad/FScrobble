@@ -10,6 +10,7 @@ module CommandLineInterface =
     open FScrobble.Core.Dependencies
     open FScrobble.LastFm
     open FScrobble.Core.Constants
+    open FScrobble.Core.Helpers
 
     type ScrobbleServers =
         | LastFm of string
@@ -70,7 +71,7 @@ module CommandLineInterface =
                 let! (deps) = ask
                 let options = getCommandLineOptions args
                 printfn "Running application with options: %A" options
-                match options.ConnectScrobblingServer with
+                match normalize options.ConnectScrobblingServer with
                 | "lastfm" -> 
                     let! res = connectLastFmServer ()
                     match res with
