@@ -13,8 +13,9 @@ INSTALL_ROOT="$HOME/.local"
 INSTALL_DIR="$INSTALL_ROOT/lib/fscrobble"
 BIN_LINK="$INSTALL_ROOT/bin/fscrobble"
 SERVICE_DIR="$HOME/.config/systemd/user"
-SERVICE_FILE="$SERVICE_DIR/fscrobble.service"
-SERVICE_TEMPLATE_URL="https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/systemd/FScrobble.service"
+SERVICE_TEMPLATE_NAME="fscrobble.service"
+SERVICE_FILE="$SERVICE_DIR/$SERVICE_TEMPLATE_NAME"
+SERVICE_TEMPLATE_URL="https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/systemd/$SERVICE_TEMPLATE_NAME"
 TMP_DIR="$(mktemp -d)"
 ARCHIVE_NAME="fscrobble.tar.gz"
 
@@ -48,13 +49,13 @@ ln -sf "$MAIN_BIN" "$BIN_LINK"
 
 echo "Downloading systemd user service template..."
 mkdir -p "$SERVICE_DIR"
-curl -sL "$SERVICE_TEMPLATE_URL" -o "$TMP_DIR/FScrobble.service"
+curl -sL "$SERVICE_TEMPLATE_URL" -o "$TMP_DIR/$SERVICE_TEMPLATE_NAME"
 
 echo "Installing user systemd unit at $SERVICE_FILE..."
 sed \
   -e "s|{{ExecStart}}|$BIN_LINK|g" \
   -e "s|{{WorkingDirectory}}|$INSTALL_DIR|g" \
-  "$TMP_DIR/fscrobble.service" > "$SERVICE_FILE"
+  "$TMP_DIR/$SERVICE_TEMPLATE_NAME" > "$SERVICE_FILE"
 
 echo "Reloading user systemd daemon..."
 systemctl --user daemon-reexec || true
