@@ -1,0 +1,17 @@
+[Unit]
+Description=FScrobble — MPRIS-compatible music scrobbling service
+Documentation=https://github.com/alibaghernejad/FScrobble
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart={{ExecStart}}
+WorkingDirectory={{WorkingDirectory}}
+Restart=on-failure
+RestartSec=10
+Environment=DOTNET_ENVIRONMENT=Production
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
