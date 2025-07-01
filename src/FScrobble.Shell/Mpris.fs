@@ -247,7 +247,3 @@ module Mpris =
         with
         | e -> deps.Log Logging.Information e.Message None
         }
-
-
-
-// TODO: ONE TIME CONNECTION ON TOP IS OK?
