@@ -53,16 +53,10 @@ module ReaderAsync =
             })
             
         member _.Delay(f: unit -> ReaderAsync<'env, 'a>) : ReaderAsync<'env, 'a> =
-            ReaderAsync (fun env -> async.Delay(fun () -> let (ReaderAsync r) = f() in r env))
+            ReaderAsync (fun env -> async.Delay(fun () -> let (ReaderAsync r) = f() in r env))     
 
-        
-
-        // member _.Delay(f: unit -> ReaderAsync<_, _>) = fun env -> async.Delay(fun () -> f () env)
         member _.TryWith(m, h) = tryWith m h
         member _.TryFinally(m, c) = tryFinally m c
-        // member _.Using(resource: #System.IDisposable, body) =
-        //     fun env -> async.Using(resource, fun r -> body r env)
-
         member _.Using(resource: #System.IDisposable, body: _ -> ReaderAsync<'env, 'a>) : ReaderAsync<'env, 'a> =
             ReaderAsync(fun env ->
                 async.Using(resource, fun r ->
@@ -72,20 +66,11 @@ module ReaderAsync =
 
         member _.Combine(a, b) = bind (fun () -> b) a    
         member _.ReturnFrom(r) = r
-        // New overload for Async<'a>
-        // member _.ReturnFrom(a: Async<'a>) : ReaderAsync<'env, 'a> =
-        //     ReaderAsync(fun _ -> a)        
         member _.Zero() = ReaderAsync (fun _ -> async.Zero())
 
     let readerAsync = ReaderAsyncBuilder()
 
     let ask = ReaderAsync (fun env -> async.Return env)
-
-    // let ReaderAsync = ReaderAsyncBuilder()
-
-    let ask2 =  fun env -> async.Return env
-    let ask3 = ReaderAsync id
-
 
     let liftAsync (a: Async<'a>) : ReaderAsync<'env, 'a> =
         ReaderAsync(fun f -> a)
@@ -97,7 +82,3 @@ module ReaderAsync =
         fun env -> async { return reader env }
 
     let inline askFor<'env> : ReaderAsync<'env, 'env> = ask
-
-    /// Transform a Reader's environment from subtype to supertype.
-    // let withEnv (f:'superEnv->'subEnv) readerAsync =
-    //     ReaderAsync (fun superEnv -> run (f superEnv) readerAsync)
