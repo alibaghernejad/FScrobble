@@ -72,7 +72,6 @@ module CommandLineInterface =
                 printfn "Running application with options: %A" options
                 match options.ConnectScrobblingServer with
                 | "lastfm" -> 
-                    // let (ReaderAsync connectRunner) = connectLastFmServer 
                     let! res = connectLastFmServer ()
                     match res with
                     | Ok sessionKey ->
@@ -80,8 +79,7 @@ module CommandLineInterface =
                         printfn "Close the program and start it again in normal mode."
                     | Error err ->
                         printfn "Failed to connect to %s scrobbling Server. %A" options.ConnectScrobblingServer err     
-                // | "librefm" -> let! res = LibreFm.getSessionKeyOrAuthenticate config
-                | _ -> printfn "Not Supported Scrobbling Server. valid Servers: %A" (Some LastFm, Some LibreFm)
+                | _ -> printfn "Not Supported Scrobbling Server. valid Servers: %A" [nameof LastFm]
             with ex ->
                 printfn "Error: %s" ex.Message
                 Environment.Exit(1)
