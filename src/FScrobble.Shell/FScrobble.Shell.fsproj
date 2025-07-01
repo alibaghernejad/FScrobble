@@ -20,7 +20,7 @@
     <Compile Include="CompositionRoot.fs" />
     <Compile Include="ScrobblingHelper.fs" />
     <Compile Include="Mpris.fs" />
-    <Compile Include="ScrobblingDeamon.fs" />
+    <Compile Include="ScrobblingDaemon.fs" />
     <Compile Include="CommandLineInterface.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -51,7 +51,7 @@
     
     <!-- Include a CI build number in the AssemblyFileVersion -->
     <AssemblyFileVersion>0.1.0.$(BuildNumber)</AssemblyFileVersion>
-    <AssemblyInformationVersion>v0.1.0-beta.$(BuildNumber)</AssemblyInformationVersion>
+    <AssemblyInformationVersion>FScrobblev0.1.0-beta.$(BuildNumber)</AssemblyInformationVersion>
   </PropertyGroup>
 
   <ItemGroup>
