@@ -58,8 +58,19 @@ sed \
   "$TMP_DIR/$SERVICE_TEMPLATE_NAME" > "$SERVICE_FILE"
 
 echo "Reloading user systemd daemon..."
-systemctl --user daemon-reexec || true
-systemctl --user daemon-reload
+if systemctl --user is-active default.target &>/dev/null; then
+    systemctl --user daemon-reload
+    echo "Enabling and starting FScrobble user service..."
+    systemctl --user enable fscrobble
+    systemctl --user start fscrobble
+else
+    echo "⚠️ User systemd session not available."
+    echo "You can manually enable the service with:"
+    echo "systemctl --user daemon-reload"
+    echo "systemctl --user enable fscrobble"
+    echo "systemctl --user start fscrobble"
+fi
+
 
 echo "Enabling and starting FScrobble user service..."
 systemctl --user enable fscrobble
@@ -68,4 +79,4 @@ systemctl --user start fscrobble
 echo "✅ FScrobble installed and running!"
 echo "Check with: systemctl --user status fscrobble"
 echo "Make sure ~/.local/bin is in your PATH:"
-echo "   export PATH=\"\$HOME/.local/bin:\$PATH\""
+echo "export PATH=\"\$HOME/.local/bin:\$PATH\""
