@@ -7,6 +7,8 @@ module ConfigLoader =
     open FScrobble.Core.AppConfigurations
     open FScrobble.Core
     open System.IO
+    open Microsoft.Extensions.Hosting
+    open Microsoft.Extensions.Configuration.Json
 
 
     let inline tryGet<'T when 'T: not struct> (cfg: IConfiguration) (sectionName: string) (fallback: 'T) : 'T =
@@ -26,6 +28,35 @@ module ConfigLoader =
             )
         | xdg -> Path.Combine(xdg, "fscrobble")
 
+    
+    let getUserConfigSource configPath = 
+        JsonConfigurationSource(
+                    Path = "config.json",
+                    Optional = true,
+                    ReloadOnChange = true,
+                    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(configPath)
+                )
+
+    let insertUserConfigProvider (builder:HostApplicationBuilder) (source:IConfigurationSource)=
+        let env = builder.Environment
+        let sources = builder.Configuration.Sources
+
+        let tryFindConfigIndex path =
+            sources
+            |> Seq.tryFindIndex (function
+                | :? JsonConfigurationSource as j when j.Path.Equals(path, StringComparison.OrdinalIgnoreCase) -> true
+                | _ -> false)
+            |> Option.map ((+) 1)
+            
+        let indexAfterBaseJson =
+            [ $"appsettings.{env.EnvironmentName}.json"; $"appsettings.json" ]
+            |> List.tryPick tryFindConfigIndex
+            |> Option.defaultValue sources.Count    
+                   
+        sources.Insert(indexAfterBaseJson, source)
+        
+
+ 
     let createUserConfigIfNotExists (appBaseDir) =
         let appSettingsPath = Path.Combine(appBaseDir, "appsettings.json")
         let configDir = configPath

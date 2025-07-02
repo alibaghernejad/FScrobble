@@ -3,7 +3,6 @@ namespace FScrobble.Shell
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open FScrobble.Shell.CommandLineInterface
-open System.Linq
 
 module Program =
     open Microsoft.Extensions.Logging
@@ -27,23 +26,27 @@ module Program =
         let ctSource = new CancellationTokenSource()
         let ct = ctSource.Token
         
-        let builder = Host.CreateDefaultBuilder(args)
-        let host = 
-            builder
-                .UseContentRoot(contentRoot) 
-                .ConfigureAppConfiguration(fun ctx config ->
-                    let userConfig = Path.Combine(ConfigLoader.configPath, "config.json")
-                    config.AddJsonFile(userConfig, optional = true, reloadOnChange = true) |> ignore)
-                .ConfigureServices(fun ctx services ->
-                    services
-                        .AddHostedService<ScrobblingDaemon>() 
-                        .AddSingleton<AppDependencies>(fun a -> 
+        let builder =
+            Host.CreateApplicationBuilder(
+                HostApplicationBuilderSettings(
+                    ContentRootPath = contentRoot,
+                    Args = args
+                )
+            )        
+        
+        let userConfigPath = ConfigLoader.configPath
+        let userConfigSource = ConfigLoader.getUserConfigSource userConfigPath
+        ConfigLoader.insertUserConfigProvider builder userConfigSource
+
+        builder.Services.AddHostedService<ScrobblingDaemon>() |> ignore
+        builder.Services.AddSingleton<AppDependencies>(fun a -> 
                             let loggerFactory = a.GetService<ILoggerFactory>()
-                            let logger = loggerFactory.CreateLogger("FScrobble.Shell")
+                            let logger = loggerFactory.CreateLogger "FScrobble.Shell"
                             CompositionRoot.buildAppDependencies (a.GetRequiredService<IConfiguration>(), logger, ct))
                           |> ignore
-                )
-                .Build()              
+
+            
+        let host = builder.Build()
         let deps = host.Services.GetRequiredService<AppDependencies>()
 
         match List.ofArray (args) with
