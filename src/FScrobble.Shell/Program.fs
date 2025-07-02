@@ -9,7 +9,6 @@ module Program =
     open Microsoft.Extensions.Logging
     open FScrobble.Core
     open System.Threading
-    open System.Diagnostics
     open System.IO
     open System
     open Microsoft.Extensions.Configuration
@@ -20,6 +19,11 @@ module Program =
 
         let contentRoot = AppDomain.CurrentDomain.BaseDirectory
         printfn "Current directory set to: %s" (Directory.GetCurrentDirectory())
+        try
+           ConfigLoader.createUserConfigIfNotExists contentRoot
+        with ex ->
+            printfn $"Warning: Could not create default config: {ex.Message}"
+                
         let ctSource = new CancellationTokenSource()
         let ct = ctSource.Token
         
@@ -27,6 +31,9 @@ module Program =
         let host = 
             builder
                 .UseContentRoot(contentRoot) 
+                .ConfigureAppConfiguration(fun ctx config ->
+                    let userConfig = Path.Combine(ConfigLoader.configPath, "config.json")
+                    config.AddJsonFile(userConfig, optional = true, reloadOnChange = true) |> ignore)
                 .ConfigureServices(fun ctx services ->
                     services
                         .AddHostedService<ScrobblingDaemon>() 
