@@ -36,58 +36,6 @@ type ScrobblingDaemon(
     inherit BackgroundService()
 
     let log = createLogger logger
-    let mutable currentState: PlaybackSnapshot option = None
-
-    let mutable (l: LoopDetectionResult) =
-        NoLoop
-            { LastPosition = TimeSpan.Zero
-              LastLoopDetectedAt = None }
-
-    let shouldScrobble (track: TrackInfo) (startTime: DateTimeOffset) = true
-    let mutable currentState: TrackPositionState option = None
-
-    let detectLoop
-        (position: TimeSpan)
-        (state: PlaybackState)
-        (trackDuration: TimeSpan)
-        (now: DateTimeOffset)
-        : LoopDetectionResult =
-
-        let delta = position - state.LastPosition
-        let cooldown = TimeSpan.FromSeconds 20.0
-
-        let deltaThreshold = trackDuration.TotalSeconds * 0.10
-        let startThreshold = trackDuration.TotalSeconds * 0.10
-        let minPlayedThreshold = trackDuration.TotalSeconds * 0.50
-
-        let recentlyDetected =
-            match state.LastLoopDetectedAt with
-            | Some ts -> now - ts < cooldown
-            | None -> false
-
-        let isLooping =
-            not recentlyDetected
-            && delta.TotalSeconds < -deltaThreshold
-            && position.TotalSeconds < startThreshold
-            && state.LastPosition.TotalSeconds > minPlayedThreshold
-
-        let r =
-            if isLooping then
-                printfn "LOOOOOOOP"
-                // Update loop time and last position
-                let newState =
-                    { state with
-                        LastLoopDetectedAt = Some now
-                        LastPosition = position }
-
-                LoopDetected newState
-            else
-                printfn "XXXXXXXXX"
-                // Just update position
-                let newState = { state with LastPosition = position }
-                NoLoop newState
-
-        r
 
     let getValidEffectiveTime (state: TrackInfo) (effectiveTime: TimeSpan) =
         match effectiveTime, state.Length with
