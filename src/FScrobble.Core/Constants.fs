@@ -50,5 +50,8 @@ module Constants =
     [<Literal>] 
     let DEFAULT_PLAYER = "unknownplayer"
     
-    [<Literal>] 
+
     let DEFAULT_GENRE = "unknowngenre"
+
+    [<Literal>]
+    let XDG_CONFIG_HOME = "XDG_CONFIG_HOME"
