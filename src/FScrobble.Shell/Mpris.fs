@@ -166,7 +166,6 @@ module Mpris =
                 tracker:EventBus<MediaPlayerTrackerMsg>,
                 deps:AppDependencies) =
                 async {
-                    printfn "Allowed players: %A" deps.Config.Scrobbling.AllowedPlayers
                     let! names = connection.ListServicesAsync() |> Async.AwaitTask
                     let namesFiltered = names |> Array.filter (fun name -> name.StartsWith(MPRIS_ROOT_INTERFACE))
                     if not (namesFiltered.Any()) then
