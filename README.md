@@ -11,7 +11,7 @@ allowing users to track their **music listening habits** by automatically submit
 
 
 ## 🌟 Highlights
-G
+
 - 🎵 **Real-time Scrobbling** — Automatically track your music listening habits.
 - 🔗 **Last.fm Integration** — Connect your Last.fm account effortlessly.
 - ⚡ **Lightweight and Fast** — Built with F# for performance, simplicity and readability.
