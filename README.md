@@ -10,12 +10,12 @@ allowing users to track their **music listening habits** by automatically submit
 ¹ **Footnote**: The pipe operator (`|>`) is a core feature of F# that allows you to pass the result of one function as an argument to another, enabling clean and readable functional code. The logo reflects this concept, symbolizing a pipeline of music streams that are meant to be scrobbled.
 
 
-## 🚀 Features
-
-- 🎵 **Real-time Scrobbling**: Automatically track your music listening habits.
-- 🔗 **Last.fm Integration**: Connect your Last.fm account effortlessly.
-- ⚡ **Lightweight and Fast**: Built with F# for performance, simplicity and readability.
-- 🖥️ **D-Bus and MPRIS-Compatible**: Fully compatible with standard media players like Musikcube, YouTube Music, and others on Linux.
+## 🌟 Highlights
+G
+- 🎵 **Real-time Scrobbling** — Automatically track your music listening habits.
+- 🔗 **Last.fm Integration** — Connect your Last.fm account effortlessly.
+- ⚡ **Lightweight and Fast** — Built with F# for performance, simplicity and readability.
+- 🖥️ **D-Bus and MPRIS-Compatible** — Fully compatible with standard media players like Musikcube, YouTube Music, and others on Linux.
 
 
 ## 📦 Installation
