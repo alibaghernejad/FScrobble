@@ -1,0 +1,1 @@
+eval "$(wget -qO- https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/scripts/fscrobble-install.sh)" 
