@@ -161,7 +161,7 @@ module LastFm =
                 | Ok sessionKey ->
                     printfn "Session Key obtained: %s" sessionKey
                     // Persist the session key to a file
-                    let filePath = ".sessionKey"
+                    let filePath = Path.Combine(AppContext.BaseDirectory, ".sessionKey");
                     let! persistResult = persistSessionKey sessionKey filePath
 
                     match persistResult with
