@@ -54,7 +54,7 @@ For more details, refer to the **Configuration** section.
 
 1. Obtain your **API Key** and **Secret** from [Last.fm](https://www.last.fm/api/account/create). Ensure you have a Last.fm account to access these credentials.
 To configure your Last.fm API keys, use environment variables:
-2. Update the `settings.json` file or set the following environment variables with your credentials:
+2. Update the `config.json` file or set the following environment variables with your credentials:
 
    **Using Environment Variables:**
    ```bash
