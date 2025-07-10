@@ -75,8 +75,8 @@ To configure your Last.fm API keys, use environment variables:
    ```
  3. Initialize the connection to **Last.fm** by running the following command and following the on-screen instructions:
       ```bash
-      cd FScrobble/FScrobble.Shell
-      dotnet run connect lastfm
+      cd  ~/.local/bin/
+      fscrobble connect lastfm
       ```
 4. If the setup is successful, you will see something like this message:
    _"Connection to .. scrobbling server successfully initialized."_
