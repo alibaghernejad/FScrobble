@@ -62,8 +62,9 @@ To configure your Last.fm API keys, use environment variables:
    export LastFm__ApiSecret=YOUR_API_SECRET
    ```
 
-   **Using `settings.json`:**
-   Create or update a `settings.json` file in the application's configuration directory with the following structure:
+   **Using `config.json`:**
+   FScrobble automatically create `config.json` file with default settings at ` ~/.config/fscrobble/config.json` if it not exists.
+   Update _ApiKey_ and _ApiSecret_ of the LastFm file in as showed bellow:
    ```json
    {
      "LastFm": {
