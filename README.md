@@ -80,7 +80,7 @@ To configure your Last.fm API keys, use environment variables:
       ```
 4. If the setup is successful, you will see something like this message:
    _"Connection to .. scrobbling server successfully initialized."_
-5. After completing the setup, close the program and start it in normal mode:
+5. After completing the setup, close the program and restart the FScrobble systemd service.
    ```bash
    dotnet run
 6. Verify that scrobbling is working by visiting your scrobbling dashboard and checking if your recently played tracks are being recorded.
