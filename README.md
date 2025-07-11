@@ -23,7 +23,7 @@ There are two way to install and use FScrobbe:
 ### Install From Binary (Recommended)
 Simply run this command:
 ```bash
-wget -qO- https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/scripts/fscrobble.sh | bash
+wget -qO- https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/scripts/fscrobble-install.sh | bash
 ```
 
 ## Install from Source
