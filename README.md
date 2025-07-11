@@ -83,7 +83,7 @@ To configure your Last.fm API keys, use environment variables:
 5. After completing the setup, close the program and restart the FScrobble systemd service.
    ```bash
    systemctl --user restart fscrobble
-6. Verify that scrobbling is working by visiting your scrobbling dashboard and checking if your recently played tracks are being recorded.
+6. Verify that scrobbling is working correctly by visiting your scrobbling dashboard and checking if your recently played tracks are being recorded.
 
 By default, FScrobble allows scrobbling for a limited set of MPRIS-compatible media players to ensure user privacy and security. 
 
