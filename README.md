@@ -105,7 +105,7 @@ There are only two allowed media players by default: **Musikcube** and **YouTube
 
 ## Why F# and .NET?
 
-To be honest, this is a side project—a hobby project. While listening to _[Udo Lindenberg](https://en.wikipedia.org/wiki/Udo_Lindenberg)_ and [Bruce Springsteen](https://en.wikipedia.org/wiki/Bruce_Springsteen)'s **catchy songs**, I felt the need to track my _music listening habits_ and came up with the idea of writing my own script using MPRIS.  
+To be honest, this is a side project—a hobby project. While listening to  _[Bruce Springsteen](https://en.wikipedia.org/wiki/Bruce_Springsteen)_ and _[Udo Lindenberg](https://en.wikipedia.org/wiki/Udo_Lindenberg)'s_ **catchy songs**, I felt the need to track my _music listening habits_ and came up with the idea of writing my own script using MPRIS.  
 Of course, there are other great services that can do this, but I wanted full control over the data being transmitted to the provided servers.  
 Additionally, working with the F# ecosystem and its unique approach to software development—which combines functional programming with .NET—was a fantastic experience. The seamless improvements in performance, security, and features in recent .NET versions made it even better.  
 It's not just about F#. It's about exploring alternative approaches to software development, where the resulting product is efficient, easier to develop, deploy, and maintain.
