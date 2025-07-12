@@ -19,7 +19,14 @@ allowing users to track their **music listening habits** by automatically submit
 
 
 ## Installation
+There are two way to install and use FScrobbe:
+### Install From Binary (Recommended)
+Simply run this command:
+```bash
+wget -qO- https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/scripts/fscrobble.sh | bash
+```
 
+## Install from Source
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/FScrobble.git
