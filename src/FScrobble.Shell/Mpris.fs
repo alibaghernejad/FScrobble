@@ -6,7 +6,6 @@ open System.Collections.Generic
 open Tmds.DBus
 open FScrobble.Core.Models
 
-
 module Mpris =
     open FSharp.Control
     open FScrobble.Core
