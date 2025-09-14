@@ -29,7 +29,7 @@ wget -qO- https://raw.githubusercontent.com/alibaghernejad/FScrobble/main/script
 ## Install from Source
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/FScrobble.git
+   git clone https://github.com/alibaghernejad/FScrobble.git
    ```
 2. Navigate to the project directory:
    ```bash
